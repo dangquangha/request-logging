@@ -5,7 +5,7 @@ This package allow you to track how many bots visit your website, their frequenc
 ### Installation
 In your project folder, run
 
-<code>composer require workable/request-logging</code>
+<code>composer require q/request-logging</code>
 
 Aftef finish, publish vendor by this command:
 
