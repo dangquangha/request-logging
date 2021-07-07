@@ -9,7 +9,7 @@ In your project folder, run
 
 Aftef finish, publish vendor by this command:
 
-<code>php artisan vendor:publish --provider=\Workable\RequestLogging\RobotsCounterServiceProvider"</code>
+<code>php artisan vendor:publish --provider=\Workable\RequestLogging\RobotsCounterServiceProvider</code>
 
 and <code>php artisan migrate</code> to run migration file
 
