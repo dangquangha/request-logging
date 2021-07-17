@@ -1,4 +1,4 @@
-# Robots counter
+# Request Logging
 This package allow you to track the following information:
 - How many times do bots visit?
 - How many time do users search or go to page search?
