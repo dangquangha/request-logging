@@ -5,7 +5,10 @@ namespace Workable\RequestLogging;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\ServiceProvider;
+use Workable\RequestLogging\Console\RefererReportCommand;
 use Workable\RequestLogging\Console\RobotsCounterReportCommand;
+use Workable\RequestLogging\Console\UserSearchReportCommand;
+use Workable\RequestLogging\Middleware\RefererLogMiddleware;
 use Workable\RequestLogging\Middleware\RobotsCounterMiddleware;
 use Workable\RequestLogging\Middleware\SearchDailyMiddleware;
 
@@ -26,6 +29,7 @@ class RequestLoggingServiceProvider extends ServiceProvider
         ]);
         $router->aliasMiddleware('robots.counter', RobotsCounterMiddleware::class);
         $router->aliasMiddleware('search.daily', SearchDailyMiddleware::class);
+        $router->aliasMiddleware('refer.daily', RefererLogMiddleware::class);
 
         $configs = require (__DIR__ . '/Config/request_log.php');
 
@@ -52,7 +56,11 @@ class RequestLoggingServiceProvider extends ServiceProvider
     public function register()
     {
 //         register the artisan commands
-        $this->commands([RobotsCounterReportCommand::class]);
+        $this->commands([
+            RobotsCounterReportCommand::class,
+            UserSearchReportCommand::class,
+            RefererReportCommand::class
+        ]);
     }
 
 }

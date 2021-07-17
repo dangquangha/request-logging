@@ -2,19 +2,19 @@
 
 namespace Workable\RequestLogging\Console;
 
-use Workable\RequestLogging\Models\RobotsCounterReport;
 use Carbon\Carbon;
-use Illuminate\Console\Command;
 use DateTime;
+use Illuminate\Console\Command;
+use Workable\RequestLogging\Models\UserSearchReport;
 
-class RobotsCounterReportCommand extends Command
+class UserSearchReportCommand extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'robot:report
+    protected $signature = 'user-search:report
     {--date=daily : range time needs to report [today, yesterday, week, month, range]}
     {--start= : range time needs to report [YYYY-MM-DD]}
     {--end= : range time needs to report [YYYY-MM-DD]}';
@@ -24,7 +24,7 @@ class RobotsCounterReportCommand extends Command
      *
      * @var string
      */
-    protected $description = 'Count robots report';
+    protected $description = 'Load report search daily to database';
 
     /**
      * Create a new command instance.
@@ -46,9 +46,9 @@ class RobotsCounterReportCommand extends Command
         $date = $this->option('date');
         list($start, $end) = $this->parseDate($date);
         $dates  = $this->getDatesFromRange($start, $end);
-        $robots = [];
+        $data_search = [];
         foreach ($dates as $date) {
-            $file = storage_path('request_logs/robots-' . $date . '.log');
+            $file = storage_path('request_logs/search_daily-' . $date . '.log');
 
             if (!file_exists($file)) {
                 $this->warn($file . ' no data ');
@@ -56,19 +56,19 @@ class RobotsCounterReportCommand extends Command
             }
             $this->info($file . ' importing ');
 
-            $this->processFile($file, $robots);
+            $this->processFile($file,$data_search);
         }
 
-        if (empty($robots))
+        if (empty($data_search))
             return;
 
 
-        foreach ($robots as $log) {
-            RobotsCounterReport::insert($log);
+        foreach ($data_search as $log) {
+            UserSearchReport::insert($log);
         }
     }
 
-    public function processFile($file, &$robots)
+    public function processFile($file, &$data_search)
     {
         $handle = fopen($file, "r");
         while (!feof($handle)) {
@@ -76,25 +76,24 @@ class RobotsCounterReportCommand extends Command
             if (strlen($line)) {
                 $line = trim($line);
 
-                $bot_request_time = explode(']', $line)[0];
-                $bot_request_time = str_replace('[', '', $bot_request_time);
+                $request_time = explode(']', $line)[0];
+                $request_time = str_replace('[', '', $request_time);
 
-                $bot_info = explode('EMERGENCY: ', $line)[1];
-                preg_match('/\(.*\)/', $bot_info, $bot_agent);
-                $bot_info = explode(' ', $bot_info);
+                $search_info = explode('EMERGENCY: ', $line)[1];
+                $search_info = explode(' ', $search_info);
 
-                $countParam = count($bot_info);
+                $url = array_shift($search_info);
+                $ip = array_pop($search_info);
 
-                $robots[] = [
-                    'name'         => $bot_info[0],
-                    'agent'        => $bot_agent[0],
-                    'url'         => $bot_info[$countParam - 3],
-                    'ip'           => $bot_info[$countParam -2],
-                    'time_request' => $bot_request_time,
-                    'time_exec'    => $bot_info[$countParam - 1],
+                $data_search[] = [
+                    'url' => $url,
+                    'agent' => implode(" ", $search_info),
+                    'ip' => $ip,
+                    'request_time' => $request_time,
                 ];
             }
         }
+
         unlink($file);
     }
 

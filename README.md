@@ -1,15 +1,26 @@
 # Robots counter
-This package allow you to track how many bots visit your website, their frequency and time execution for each request.
+This package allow you to track the following information:
+- How many times do bots visit?
+- How many time do users search or go to page search?
+- How many times do users visit your website through Google or CocCoc?
 
 
 ### Installation
 In your project folder, run
 
-<code>composer require quangha2611/request-logging</code>
+<code>
+
+    composer require quangha2611/request-logging
+
+</code>
 
 Aftef finish, publish vendor by this command:
 
-<code>php artisan vendor:publish --provider="\Workable\RequestLogging\RobotsCounterServiceProvider"</code>
+<code>
+
+    php artisan vendor:publish --provider="Workable\RequestLogging\RequestLoggingServiceProvider"
+    
+</code>
 
 and <code>php artisan migrate</code> to run migration file
 
@@ -20,13 +31,44 @@ If you want the middleware works for every request, just put its class <code>\Wo
 But the best practise is using this middleware for routes need reporting for better performance.
 Also, you can config your accepted request methods you want to be in your log.
 
-Logs are saved to database by command <code>robot:report</code>, this command is scheduled to run everyday. You can use it to make report for specific day, use <code>php artisan robot:report --help</code> to see usage. 
+If you want to export the obtained information to the database, you can run the following commands:
 
+<b>To report robots visited times: </b>
 
-We provide a route named <code>api.robots.counter</code> so you can easily make a report from it. 
-This route uses GET method and accepts 3 parameters:<br>
-<code>bot</code> : bot name you want to make report<br>
-<code>range</code>: Range time you want to make report, <code>m</code> for last 30 days and <code>w</code> for last 7 days, the default value is <code>w</code>. <br>
-<code>type</code>: Report by day or by hour, <code>day</code> for by day and <code>hour</code> for by hour, default is <code>hour</code>.
+<code>
 
+    php artisan robot:report --date=today
 
+</code>
+
+<b>To report users searched times: </b>
+
+<code>
+
+    php artisan user-search:report --date=today
+    
+</code>
+
+<b>To report users visit your website through Google or CocCoc: </b>
+
+<code>
+
+    php artisan refer:report --date=today 
+    
+</code>
+
+I support some another options
+
+<code>
+
+    --date=today
+
+    --date=yesterday
+
+    --date=week
+
+    --date=month
+
+    --date=range --start=YYYY-MM-DD --end=YYYY-MM-DD
+
+</code>

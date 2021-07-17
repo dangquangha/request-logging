@@ -2,9 +2,8 @@
 return [
     'search_daily'      => [
         'driver' => 'daily',
-        'tap'    => [Workable\RequestLogging\Logging\HistorySearchFormatter::class],
         'path'   => storage_path('request_logs/search_daily.log'),
-        'level'  => 'info',
+        'level'  => 'emergency',
         'days'   => 7,
     ],
     'robot_counter' => [

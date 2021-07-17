@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Jenssegers\Agent\Agent;
 use App\Libs\Traits\HasHashSlug;
+use function preg_match;
 
 class SearchDailyMiddleware
 {
@@ -14,8 +15,6 @@ class SearchDailyMiddleware
 
     /**
      * @param Request $request
-     * @param string $slug1
-     * @param string $slug2
      * @param Closure $next
      * @return mixed
      */
@@ -35,7 +34,9 @@ class SearchDailyMiddleware
         $ip        = $request->ip();
         $data      = "$url $userAgent $ip";
 
-        Log::channel('search_daily')->info($data);
+        if (!$agent->isRobot() && !$request->ajax()) {
+            Log::channel('search_daily')->emergency($data);
+        }
 
         return $next($request);
     }
