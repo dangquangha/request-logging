@@ -7,18 +7,14 @@ This package allow you to track the following information:
 
 ### Installation
 In your project folder, run
-<code>
-
-    composer require quangha2611/request-logging
-
-</code>
+```
+composer require quangha2611/request-logging
+```
 
 Aftef finish, publish vendor by this command:
-<code>
-
-    php artisan vendor:publish --provider="Workable\RequestLogging\RequestLoggingServiceProvider"
-    
-</code>
+```
+php artisan vendor:publish --provider="Workable\RequestLogging\RequestLoggingServiceProvider"
+```
 
 and <code>php artisan migrate</code> to run migration file
 
@@ -32,37 +28,29 @@ Also, you can config your accepted request methods you want to be in your log.
 If you want to export the obtained information to the database, you can run the following commands:
 
 <b>To report robots visited times: </b>
-<code>
-
-    php artisan robot:report --date=today
-
-</code>
+```
+php artisan robot:report --date=today
+```
 
 <b>To report users searched times: </b>
-<code>
-
-    php artisan user-search:report --date=today
-    
-</code>
+```
+php artisan user-search:report --date=today
+```
 
 <b>To report users visit your website through Google or CocCoc: </b>
-<code>
-
-    php artisan refer:report --date=today 
-    
-</code>
+```
+php artisan refer:report --date=today 
+```
 
 I support some another options
-<code>
+```
+--date=today
 
-    --date=today
+--date=yesterday
 
-    --date=yesterday
+--date=week
 
-    --date=week
+--date=month
 
-    --date=month
-
-    --date=range --start=YYYY-MM-DD --end=YYYY-MM-DD
-
-</code>
+--date=range --start=YYYY-MM-DD --end=YYYY-MM-DD
+```
