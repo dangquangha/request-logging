@@ -7,7 +7,6 @@ This package allow you to track the following information:
 
 ### Installation
 In your project folder, run
-
 <code>
 
     composer require quangha2611/request-logging
@@ -15,7 +14,6 @@ In your project folder, run
 </code>
 
 Aftef finish, publish vendor by this command:
-
 <code>
 
     php artisan vendor:publish --provider="Workable\RequestLogging\RequestLoggingServiceProvider"
@@ -34,7 +32,6 @@ Also, you can config your accepted request methods you want to be in your log.
 If you want to export the obtained information to the database, you can run the following commands:
 
 <b>To report robots visited times: </b>
-
 <code>
 
     php artisan robot:report --date=today
@@ -42,7 +39,6 @@ If you want to export the obtained information to the database, you can run the 
 </code>
 
 <b>To report users searched times: </b>
-
 <code>
 
     php artisan user-search:report --date=today
@@ -50,7 +46,6 @@ If you want to export the obtained information to the database, you can run the 
 </code>
 
 <b>To report users visit your website through Google or CocCoc: </b>
-
 <code>
 
     php artisan refer:report --date=today 
@@ -58,7 +53,6 @@ If you want to export the obtained information to the database, you can run the 
 </code>
 
 I support some another options
-
 <code>
 
     --date=today
