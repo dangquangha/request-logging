@@ -1,5 +1,5 @@
 {
-  "name": "workable/request-logging",
+  "name": "dangquangha/request-logging",
   "description": "Count and report how many times a bot visit your website",
   "require": {
     "jenssegers/agent": "^2.6"
@@ -7,8 +7,8 @@
   "license": "MIT",
   "authors": [
     {
-      "name": "Hà Văn Linh",
-      "email": "havanlinh1996@gmail.com"
+      "name": "Đặng Quang Hà",
+      "email": "quangha2611@gmail.com"
     }
   ],
   "autoload": {
