@@ -8,7 +8,7 @@ This package allow you to track the following information:
 ### Installation
 In your project folder, run
 ```
-composer require quangha2611/request-logging
+composer require dangquangha/request-logging
 ```
 
 Aftef finish, publish vendor by this command:
