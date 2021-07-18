@@ -15,7 +15,7 @@ class RefererLogMiddleware
         $url       = $request->fullUrl();
         $userAgent = $agent->getUserAgent();
         $ip        = $request->ip();
-        $referer   = $request->header()['referer'][0];
+        $referer   = $request->header()['referer'][0] ?? null;
         $data      = "$referer $url $userAgent $ip";
 
         if (preg_match('/google\.com/', $referer) || preg_match('/coccoc\.com/', $referer)) {
