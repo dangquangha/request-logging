@@ -5,6 +5,7 @@ namespace Workable\RequestLogging\Middleware;
 use Closure;
 use Illuminate\Support\Facades\Log;
 use Jenssegers\Agent\Agent;
+use Workable\RequestLogging\Libs\Common;
 use const LARAVEL_START_EXECUTION_TIME;
 
 class RobotsCounterMiddleware
@@ -28,7 +29,7 @@ class RobotsCounterMiddleware
 
             $botAgent = $agent->getUserAgent();
             $url       = $request->fullUrl();
-            $ip        = $request->ip();
+            $ip        = Common::get_client_ip();
             $processTime = (int)((microtime(true) - LARAVEL_START_EXECUTION_TIME) * 1000) . 'ms';
 
             $data = "$botAgent $url $ip $processTime";

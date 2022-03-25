@@ -32,7 +32,6 @@ class RequestLoggingServiceProvider extends ServiceProvider
         $router->aliasMiddleware('refer.daily', RefererLogMiddleware::class);
 
         $configs = require (__DIR__ . '/Config/request_log.php');
-
         foreach($configs as $key => $config)
         {
             if (!Config::get('logging.channels.' . $key)) {
@@ -55,7 +54,6 @@ class RequestLoggingServiceProvider extends ServiceProvider
      */
     public function register()
     {
-//         register the artisan commands
         $this->commands([
             RobotsCounterReportCommand::class,
             UserSearchReportCommand::class,

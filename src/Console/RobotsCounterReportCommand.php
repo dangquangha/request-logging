@@ -88,8 +88,8 @@ class RobotsCounterReportCommand extends Command
                 $robots[] = [
                     'name'         => $bot_info[0],
                     'agent'        => $bot_agent[0],
-                    'url'         => $bot_info[$countParam - 3],
-                    'ip'           => $bot_info[$countParam -2],
+                    'url'          => $bot_info[$countParam - 3],
+                    'ip'           => $bot_info[$countParam - 2],
                     'time_request' => $bot_request_time,
                     'time_exec'    => $bot_info[$countParam - 1],
                 ];

@@ -6,6 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Jenssegers\Agent\Agent;
+use Workable\RequestLogging\Libs\Common;
 
 class SearchDailyMiddleware
 {
@@ -19,7 +20,7 @@ class SearchDailyMiddleware
         $agent     = new Agent();
         $url       = $request->fullUrl();
         $userAgent = $agent->getUserAgent();
-        $ip        = $request->ip();
+        $ip        = Common::get_client_ip();
         $data      = "$url $userAgent $ip";
 
         if (!$agent->isRobot() && !$request->ajax()) {
